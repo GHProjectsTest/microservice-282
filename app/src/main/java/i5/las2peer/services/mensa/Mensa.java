@@ -84,6 +84,78 @@ public class Mensa extends RESTService {
 
       /**
    * 
+   * postDishRating
+   *
+   * 
+   * @param id  a String
+   * @param body  a JSONObject
+
+   * 
+   * @return Response 
+   * 
+   */
+  @POST
+  @Path("/dishes/{id}/ratings")
+  @Produces(MediaType.APPLICATION_JSON)
+  @Consumes(MediaType.APPLICATION_JSON)
+  @ApiResponses(value = {
+       @ApiResponse(code = HttpURLConnection.HTTP_NOT_FOUND, message = "not_found"),
+       @ApiResponse(code = HttpURLConnection.HTTP_CREATED, message = "created_rating"),
+       @ApiResponse(code = HttpURLConnection.HTTP_BAD_REQUEST, message = "bad_request")
+  })
+  @ApiOperation(value = "postDishRating", notes = " ")
+  public Response postDishRating(@PathParam("id") String id, String body) {
+   classes.DishRating payloadbodyObject = new classes().new DishRating();
+   try { 
+       payloadbodyObject.fromJSON(body);
+   } catch (Exception e) { 
+       e.printStackTrace();
+       JSONObject result = new JSONObject();
+       return Response.status(HttpURLConnection.HTTP_INTERNAL_ERROR).entity("Cannot convert json to object").build();
+   }
+
+
+
+     
+    // service method invocations
+
+     
+
+
+
+
+    // not_found
+    boolean not_found_condition = true;
+    if(not_found_condition) {
+      JSONObject not_found = new JSONObject();
+
+      
+
+      return Response.status(HttpURLConnection.HTTP_NOT_FOUND).entity(not_found.toJSONString()).build();
+    }
+    // created_rating
+    boolean created_rating_condition = true;
+    if(created_rating_condition) {
+      JSONObject created_rating = new classes().new DishRating().toJSON();
+
+      
+
+      return Response.status(HttpURLConnection.HTTP_CREATED).entity(created_rating.toJSONString()).build();
+    }
+    // bad_request
+    boolean bad_request_condition = true;
+    if(bad_request_condition) {
+      JSONObject bad_request = new JSONObject();
+
+      
+
+      return Response.status(HttpURLConnection.HTTP_BAD_REQUEST).entity(bad_request.toJSONString()).build();
+    }
+    return null;
+  }
+
+  /**
+   * 
    * getDishRatings
    *
    * 
